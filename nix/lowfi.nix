@@ -1,4 +1,5 @@
 {
+  lib,
   makeRustPlatform,
   rust-bin,
   alsa-lib,
@@ -21,4 +22,13 @@ rustPlatform.buildRustPackage {
 
   src = ../.;
   cargoLock.lockFile = ../Cargo.lock;
+
+meta = with lib; {
+  description = "lowfi is a tiny rust app that serves a single purpose: play lofi. It'll do this as simply as it can: no albums, no ads, just lofi.";
+  homepage = "https://github.com/talwat/lowfi";
+  license = with licenses; [
+        mit
+  ];
+  mainProgram = "lowfi";
+};
 }

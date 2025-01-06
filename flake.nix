@@ -8,22 +8,19 @@
     };
   };
 
-  outputs =
-    {
-      nixpkgs,
-      flake-utils,
-      rust-overlay,
-      ...
-    }:
+  outputs = {
+    nixpkgs,
+    flake-utils,
+    rust-overlay,
+    ...
+  }:
     flake-utils.lib.eachDefaultSystem (
-      system:
-      let
+      system: let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ rust-overlay.overlays.default ];
+          overlays = [rust-overlay.overlays.default];
         };
-      in
-      {
+      in {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             alsa-lib
@@ -33,6 +30,7 @@
           ];
         };
         packages.default = pkgs.callPackage ./nix/lowfi.nix {};
+        formatter = pkgs.alejandra;
       }
     );
 }
